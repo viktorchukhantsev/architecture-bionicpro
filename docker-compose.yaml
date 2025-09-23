@@ -40,3 +40,27 @@ services:
       REACT_APP_KEYCLOAK_URL: http://localhost:8080
       REACT_APP_KEYCLOAK_REALM: reports-realm
       REACT_APP_KEYCLOAK_CLIENT_ID: reports-frontend
+  reports:
+    build:
+      context: ./reports
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      KEYCLOAK_CLIENT_ID: reports-frontend
+      KEYCLOAK_URL: http://keycloak:8080/realms/reports-realm
+      ISSUER_URL: http://localhost:8080/realms/reports-realm
+      ORIGINS: http://localhost:3000
+      DATABASE_URL: postgresql://reports_user:reports_password@localhost:5434/reports_db
+    depends_on:
+      - keycloak
+  reports_db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: reports_db
+      POSTGRES_USER: reports_user
+      POSTGRES_PASSWORD: reports_password
+    volumes:
+      - ./postgres-reports-data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
