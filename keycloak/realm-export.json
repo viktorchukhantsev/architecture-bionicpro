@@ -107,6 +107,111 @@
           }
         ],
         "realmRoles": ["prothetic_user"]
+      },
+      {
+        "username": "prothetic4",
+        "enabled": true,
+        "email": "prothetic4@example.com",
+        "firstName": "Prothetic",
+        "lastName": "Four",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "prothetic123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["prothetic_user"]
+      },
+      {
+        "username": "prothetic5",
+        "enabled": true,
+        "email": "prothetic5@example.com",
+        "firstName": "Prothetic",
+        "lastName": "Fifth",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "prothetic123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["prothetic_user"]
+      },
+      {
+        "username": "prothetic6",
+        "enabled": true,
+        "email": "prothetic6@example.com",
+        "firstName": "Prothetic",
+        "lastName": "6",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "prothetic123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["prothetic_user"]
+      },
+      {
+        "username": "prothetic7",
+        "enabled": true,
+        "email": "prothetic7@example.com",
+        "firstName": "Prothetic",
+        "lastName": "7",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "prothetic123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["prothetic_user"]
+      },
+      {
+        "username": "prothetic8",
+        "enabled": true,
+        "email": "prothetic8@example.com",
+        "firstName": "Prothetic",
+        "lastName": "8",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "prothetic123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["prothetic_user"]
+      },
+      {
+        "username": "prothetic9",
+        "enabled": true,
+        "email": "prothetic9@example.com",
+        "firstName": "Prothetic",
+        "lastName": "9",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "prothetic123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["prothetic_user"]
+      },
+      {
+        "username": "prothetic10",
+        "enabled": true,
+        "email": "prothetic10@example.com",
+        "firstName": "Prothetic",
+        "lastName": "10",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "prothetic123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["prothetic_user"]
       }
     ],
     "clients": [

@@ -16,6 +16,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__WEBSERVER__SECRET_KEY: 'your_airflow_webserver_sec_key'
     _PIP_ADDITIONAL_REQUIREMENTS: ''
     AIRFLOW_INPUT_DIR: '/opt/airflow/dag-inputs'
+    AIRFLOW_CONN_PROD_REPORTS_DB: postgresql://airflow_reports_user:airflow_reports_password@reports_db:5432/reports_db
   volumes:
     - ./dags:/opt/airflow/dags
     - ./dags/sql:/opt/airflow/dags/sql
@@ -34,7 +35,7 @@ services:
       POSTGRES_USER: keycloak_user
       POSTGRES_PASSWORD: keycloak_password
     volumes:
-      - ./postgres-keycloak-data:/var/lib/postgresql/data
+      - postgres-keycloak-data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
   keycloak:
@@ -87,14 +88,15 @@ services:
       POSTGRES_USER: reports_user
       POSTGRES_PASSWORD: reports_password
     volumes:
-      - ./postgres-reports-data:/var/lib/postgresql/data
+      - postgres-reports-data:/var/lib/postgresql/data
+      - ./reports/init-db.sql:/docker-entrypoint-initdb.d/db.sql
     ports:
       - "5434:5432"
 
   airflow-postgres:
     image: postgres:16.0
     volumes:
-      - ./postgres-airflow-data:/var/lib/postgresql/data
+      - postgres-airflow-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
@@ -182,3 +184,8 @@ services:
         condition: service_healthy
     command: >
       bash -c "airflow db init && airflow users create --username admin --firstname admin --lastname admin --role Admin --email admin@sample.ru --password admin"
+
+volumes:
+  postgres-reports-data:
+  postgres-keycloak-data:
+  postgres-airflow-data:
