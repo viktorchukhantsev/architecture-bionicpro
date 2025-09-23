@@ -3,3 +3,8 @@ requests
 PyJWT
 cryptography
 python-decouple
+sse_starlette
+sqlalchemy
+psycopg2-binary
+marshmallow-sqlalchemy
+simplejson

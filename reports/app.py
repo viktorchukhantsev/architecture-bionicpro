@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, StreamingResponse
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 import jwt
@@ -8,9 +8,7 @@ from decouple import config
 from sqlalchemy.orm import Session
 from database import SessionLocal
 import datetime
-import json
-import io
-from models import Report
+from models import Report, ReportSchema
 
 
 KEYCLOAK_CLIENT_ID = config("KEYCLOAK_CLIENT_ID")
@@ -105,18 +103,12 @@ def verify_token(
 @app.get("/reports")
 def report(user=Depends(verify_token), db: Session = Depends(get_db)):
     user_name = user.get('preferred_username', 'unknown user')
-    report_data = db.query(Report).filter(Report.owner == user_name)
-    content = {
-        "report_id": report_data,
-        "requested_by": user_name
-    }
-    json_content = json.dumps(content, indent=2)
+    report_data = db.query(Report).filter(Report.user_name == user_name).all()
+    report_schema = ReportSchema()
+    report_json = report_schema.dump(report_data, many=True)
     today = datetime.date.today().strftime("%Y-%m-%d")
-    file_name = f"report-{user_name}-{today}.json"
-    string_io = io.StringIO(json_content)
-    headers = {'Content-Disposition': f'attachment; filename="{file_name}"'}
-    return StreamingResponse(
-        content=iter([string_io.read()]),
-        media_type="application/json",
-        headers=headers
-    )
+    return {
+        "user": user_name,
+        "report": report_json,
+        "date": today
+    }

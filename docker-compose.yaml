@@ -78,7 +78,7 @@ services:
       KEYCLOAK_URL: http://keycloak:8080/realms/reports-realm
       ISSUER_URL: http://localhost:8080/realms/reports-realm
       ORIGINS: http://localhost:3000
-      DATABASE_URL: postgresql://reports_user:reports_password@localhost:5434/reports_db
+      DATABASE_URL: postgresql://reports_user:reports_password@reports_db:5432/reports_db
     depends_on:
       - keycloak
   reports_db:
