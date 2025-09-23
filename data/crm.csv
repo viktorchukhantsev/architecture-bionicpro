@@ -1,0 +1,11 @@
+user_id,user_name,customer_id,full_name,prosthesis_model,prosthesis_serial,activation_date,satisfaction_score,therapy_compliance
+1001,prothetic1,501,"Иванов Алексей Петрович","BioHand Pro","BHP-2305001","2024-01-15",9,85
+1002,prothetic2,511,"Смирнова Мария Игоревна","NeuroLimb Basic","NLB-2402003","2024-02-10",7,92
+1003,prothetic3,502,"Петров Дмитрий Сергеевич","BioHand Pro","BHP-2403015","2024-03-05",10,78
+1004,prothetic4,503,"Козлова Анна Викторовна","SmartGrip Advanced","SGA-2312008","2023-12-20",8,95
+1005,prothetic5,504,"Васильев Игорь Николаевич","NeuroLimb Basic","NLB-2404012","2024-04-18",6,65
+1006,prothetic6,505,"Николаева Елена Дмитриевна","BioHand Pro","BHP-2405022","2024-05-22",9,88
+1007,prothetic7,506,"Алексеев Павел Олегович","SmartGrip Advanced","SGA-2406007","2024-06-15",7,74
+1008,prothetic8,507,"Фёдорова Ольга Васильевна","NeuroLimb Basic","NLB-2407089","2024-07-08",10,91
+1009,prothetic9,508,"Дмитриев Сергей Александрович","BioHand Pro","BHP-2408104","2024-08-12",8,83
+1010,prothetic10,509,"Морозова Татьяна Игоревна","SmartGrip Advanced","SGA-2409156","2024-09-25",9,89
