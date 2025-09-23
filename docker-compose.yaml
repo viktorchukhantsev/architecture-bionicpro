@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.8airflow'
 
 x-airflow-common: &airflow-common
   build:
@@ -19,14 +19,12 @@ x-airflow-common: &airflow-common
   volumes:
     - ./dags:/opt/airflow/dags
     - ./dags/sql:/opt/airflow/dags/sql
-    - ./requirements.txt:/opt/airflow/requirements.txt
+    - ./airflow/requirements.txt:/opt/airflow/requirements.txt
     - ./data:/opt/airflow/sample_files
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on: &airflow-common-depends-on
     postgres:
       condition: service_healthy
-  networks:
-    - dag_sample
 
 services:
   keycloak_db:
@@ -96,7 +94,7 @@ services:
   airflow-postgres:
     image: postgres:16.0
     volumes:
-      - ./db/init-db.sql:/docker-entrypoint-initdb.d/db.sql
+      - ./postgres-airflow-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
@@ -115,8 +113,6 @@ services:
       retries: 5
       start_period: 5s
     restart: always
-    networks:
-      - dag_sample
 
   airflow-webserver:
     <<: *airflow-common
@@ -129,8 +125,6 @@ services:
       airflow-init:
         condition: service_completed_successfully
     command: webserver
-    networks:
-      - dag_sample
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://localhost:8080/health || exit 1" ]
       interval: 30s
@@ -139,8 +133,6 @@ services:
 
   airflow-scheduler:
     <<: *airflow-common
-    networks:
-      - dag_sample
     command: scheduler
     depends_on:
       airflow-postgres:
@@ -160,8 +152,6 @@ services:
         condition: service_healthy
       airflow-init:
         condition: service_completed_successfully
-    networks:
-      - dag_sample
     command: bash -c "airflow triggerer"
     healthcheck:
       test:
@@ -178,8 +168,6 @@ services:
     depends_on:
       airflow-postgres:
         condition: service_healthy
-    networks:
-      - dag_sample
     profiles:
       - debug
     command:
@@ -194,8 +182,3 @@ services:
         condition: service_healthy
     command: >
       bash -c "airflow db init && airflow users create --username admin --firstname admin --lastname admin --role Admin --email admin@sample.ru --password admin"
-    networks:
-      - dag_sample
-
-networks:
-  dag_sample:
